@@ -1,0 +1,67 @@
+<div>
+
+    <h2 class="mb-2 text-2xl font-bold">
+        Dashboard
+    </h2>
+
+    <p class="text-gray-600">
+        Welcome to Employee Management System
+    </p>
+
+
+    <div class="mt-8 rounded-xl bg-white p-6 shadow-md">
+
+        <h3 class="mb-4 text-xl font-bold">
+            Recent Employees
+        </h3>
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left">
+
+                <thead class="border-b bg-gray-100">
+
+                    <tr>
+                        <th class="px-4 py-3">ID</th>
+                        <th class="px-4 py-3">Name</th>
+                        <th class="px-4 py-3">Department</th>
+                        <th class="px-4 py-3">Salary</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @for (employee of employees; track employee.id) {
+
+                    <tr class="border-b hover:bg-gray-50">
+
+                        <td class="px-4 py-3">
+                            {{ employee.id }}
+                        </td>
+
+                        <td class="px-4 py-3 font-medium">
+                            {{ employee.name }}
+                        </td>
+
+                        <td class="px-4 py-3">
+                            {{ employee.department }}
+                        </td>
+
+                        <td class="px-4 py-3">
+                            ₹{{ employee.salary | number }}
+                        </td>
+
+                    </tr>
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

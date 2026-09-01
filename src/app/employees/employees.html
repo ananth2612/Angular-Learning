@@ -1,0 +1,441 @@
+<div class="space-y-6">
+
+    <!-- Page Header -->
+    <div class="flex items-center justify-between">
+
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800">
+                Employees
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-500">
+                Manage company employees and their information.
+            </p>
+        </div>
+
+        <button (click)="addEmployee()"
+            class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-blue-700">
+
+            + Add Employee
+
+        </button>
+        @if (showAddEmployeeForm) {
+
+        <!-- Modal Background -->
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+
+            <!-- Modal -->
+            <div class="w-full max-w-2xl rounded-2xl bg-white shadow-2xl">
+
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between border-b px-6 py-4">
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">
+                            Add New Employee
+                        </h3>
+
+                        <p class="mt-1 text-sm text-gray-500">
+                            Enter employee information
+                        </p>
+                    </div>
+
+                    <!-- Close Button -->
+                    <button type="button" (click)="showAddEmployeeForm = false"
+                        class="rounded-lg px-3 py-1 text-2xl text-gray-400 hover:bg-gray-100 hover:text-gray-700">
+
+                        ×
+
+                    </button>
+
+                </div>
+
+
+                <!-- Modal Body -->
+                <div class="p-6">
+
+                    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+
+                        <!-- Employee ID -->
+                        <div>
+                            <label class="mb-1 block text-sm font-medium text-gray-700">
+                                Employee ID
+                            </label>
+
+                            <input type="text" placeholder="EMP004" [(ngModel)]="newEmployee.id"
+                                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+                        </div>
+
+
+                        <!-- Full Name -->
+                        <div>
+                            <label class="mb-1 block text-sm font-medium text-gray-700">
+                                Full Name
+                            </label>
+
+                            <input type="text" placeholder="Enter employee name" [(ngModel)]="newEmployee.name"
+                                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+                        </div>
+
+
+                        <!-- Department -->
+                        <div>
+                            <label class="mb-1 block text-sm font-medium text-gray-700">
+                                Department
+                            </label>
+
+                            <input type="text" placeholder="Engineering" [(ngModel)]="newEmployee.department"
+                                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+                        </div>
+
+
+                        <!-- Designation -->
+                        <div>
+                            <label class="mb-1 block text-sm font-medium text-gray-700">
+                                Designation
+                            </label>
+
+                            <input type="text" placeholder="Software Developer" [(ngModel)]="newEmployee.designation"
+                                class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Modal Footer -->
+                <div class="flex justify-end gap-3 border-t bg-gray-50 px-6 py-4">
+
+                    <!-- Cancel -->
+                    <button type="button" (click)="showAddEmployeeForm = false"
+                        class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+
+                        Cancel
+
+                    </button>
+
+
+                    <!-- Save -->
+                    <button type="button" (click)="saveEmployee()"
+                        class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700">
+
+                        Save Employee
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        }
+
+        @if (selectedEmployee) {
+
+        <!-- Employee Details Modal -->
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+
+            <!-- Modal -->
+            <div class="w-full max-w-2xl rounded-2xl bg-white shadow-2xl">
+
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between border-b px-6 py-4">
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">
+                            Employee Details
+                        </h3>
+
+                        <p class="mt-1 text-sm text-gray-500">
+                            Complete employee information
+                        </p>
+                    </div>
+
+                    <!-- Close Button -->
+                    <button type="button" (click)="selectedEmployee = null"
+                        class="rounded-lg px-3 py-1 text-2xl text-gray-400 hover:bg-gray-100 hover:text-gray-700">
+
+                        ×
+
+                    </button>
+
+                </div>
+
+
+                <!-- Modal Body -->
+                <div class="p-6">
+
+                    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+
+                        <!-- Employee ID -->
+                        <div>
+                            <p class="mb-1 text-sm font-medium text-gray-500">
+                                Employee ID
+                            </p>
+
+                            <p class="text-sm font-semibold text-gray-800">
+                                {{ selectedEmployee.id }}
+                            </p>
+                        </div>
+
+
+                        <!-- Full Name -->
+                        <div>
+                            <p class="mb-1 text-sm font-medium text-gray-500">
+                                Full Name
+                            </p>
+
+                            <p class="text-sm font-semibold text-gray-800">
+                                {{ selectedEmployee.name }}
+                            </p>
+                        </div>
+
+
+                        <!-- Department -->
+                        <div>
+                            <p class="mb-1 text-sm font-medium text-gray-500">
+                                Department
+                            </p>
+
+                            <p class="text-sm font-semibold text-gray-800">
+                                {{ selectedEmployee.department }}
+                            </p>
+                        </div>
+
+
+                        <!-- Designation -->
+                        <div>
+                            <p class="mb-1 text-sm font-medium text-gray-500">
+                                Designation
+                            </p>
+
+                            <p class="text-sm font-semibold text-gray-800">
+                                {{ selectedEmployee.designation }}
+                            </p>
+                        </div>
+
+
+                        <!-- Status -->
+                        <div>
+                            <p class="mb-1 text-sm font-medium text-gray-500">
+                                Status
+                            </p>
+
+                            <span
+                                class="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+
+                                {{ selectedEmployee.status }}
+
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Modal Footer -->
+                <div class="flex justify-end gap-3 border-t bg-gray-50 px-6 py-4">
+
+                    <button type="button" (click)="selectedEmployee = null"
+                        class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+
+                        Close
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+
+    <!-- Employee Summary Cards -->
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+
+        <!-- Total Employees -->
+        <div class="rounded-xl bg-white p-5 shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Total Employees
+            </p>
+
+            <p class="mt-2 text-2xl font-bold text-gray-800">
+                {{totalEmployees}}
+            </p>
+
+        </div>
+
+
+        <!-- Active Employees -->
+        <div class="rounded-xl bg-white p-5 shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                Active Employees
+            </p>
+
+            <p class="mt-2 text-2xl font-bold text-green-600">
+                {{activeEmployees}}
+            </p>
+
+        </div>
+
+
+        <!-- On Leave -->
+        <div class="rounded-xl bg-white p-5 shadow-sm">
+
+            <p class="text-sm text-gray-500">
+                On Leave
+            </p>
+
+            <p class="mt-2 text-2xl font-bold text-orange-500">
+                {{employeesOnLeave}}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Employee List -->
+    <div class="overflow-hidden rounded-xl bg-white shadow-sm">
+
+        <!-- Table Header -->
+        <div class="flex items-center justify-between border-b px-6 py-4">
+
+            <div>
+                <h3 class="font-semibold text-gray-800">
+                    Employee List
+                </h3>
+
+                <p class="mt-1 text-xs text-gray-500">
+                    View and manage company employees
+                </p>
+            </div>
+
+
+            <!-- Search Box -->
+            <div class="relative">
+
+                <input type="text" placeholder="Search employees..." [(ngModel)]="searchText"
+                    class="w-64 rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+
+            </div>
+
+        </div>
+
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left">
+
+                <!-- Table Head -->
+                <thead class="bg-gray-50">
+
+                    <tr class="border-b">
+
+                        <th class="px-6 py-3 text-sm font-semibold text-gray-600">
+                            Employee ID
+                        </th>
+
+                        <th class="px-6 py-3 text-sm font-semibold text-gray-600">
+                            Name
+                        </th>
+
+                        <th class="px-6 py-3 text-sm font-semibold text-gray-600">
+                            Department
+                        </th>
+
+                        <th class="px-6 py-3 text-sm font-semibold text-gray-600">
+                            Designation
+                        </th>
+
+                        <th class="px-6 py-3 text-sm font-semibold text-gray-600">
+                            Status
+                        </th>
+
+                        <th class="px-6 py-3 text-sm font-semibold text-gray-600">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <!-- Table Body -->
+                <tbody>
+
+                    @for (employee of filteredEmployees; track employee.id) {
+
+                    <tr class="border-b hover:bg-gray-50">
+
+                        <!-- Employee ID -->
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ employee.id }}
+                        </td>
+
+
+                        <!-- Employee Name -->
+                        <td class="px-6 py-4 text-sm font-medium text-gray-800">
+                            {{ employee.name }}
+                        </td>
+
+
+                        <!-- Department -->
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ employee.department }}
+                        </td>
+
+
+                        <!-- Designation -->
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ employee.designation }}
+                        </td>
+
+
+                        <!-- Status -->
+                        <td class="px-6 py-4">
+
+                            <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
+
+                                {{ employee.status }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- Action -->
+                        <td class="px-6 py-4">
+
+                            <button type="button" (click)="viewEmployee(employee)"
+                                class="text-sm font-medium text-blue-600 hover:underline">
+
+                                View
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
